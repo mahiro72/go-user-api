@@ -1,3 +1,5 @@
 #env
 /.env/.env
 
+#docker
+/docker/dev/mysql/data

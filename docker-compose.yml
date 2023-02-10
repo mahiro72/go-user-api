@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  api:
+    container_name: user-api
+    build: 
+      context: .
+      dockerfile: ./docker/dev/api/Dockerfile
+    tty: true
+    restart: always
+    env_file:
+      - ./.env/.env
+    depends_on:
+      - mysql
+    ports:
+      - 8080:8080
+    volumes:
+      - .:/app
+      - ./docker/dev/api/.air.toml:/.air.toml
+  mysql:
+    container_name: user-api-mysql
+    build:
+      context: .
+      dockerfile: ./docker/dev/mysql/Dockerfile
+    tty: true
+    restart: always
+    env_file:
+      - ./.env/.env
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/dev/mysql/data:/var/lib/mysql
+      - ./docker/dev/mysql/initdb.d:/docker-entrypoint-initdb.d

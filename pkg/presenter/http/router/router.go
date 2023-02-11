@@ -1,18 +1,19 @@
-package main
+package router
 
 import (
 	"net/http"
 
 	"github.com/go-chi/chi"
 
-	"github.com/mahiro72/go-user-api/cmd/api/adapter/user"
+	"github.com/mahiro72/go-user-api/pkg/presenter/http/adapter/user"
 	"github.com/mahiro72/go-user-api/pkg/registry"
+	"github.com/mahiro72/go-user-api/pkg/presenter/http/middleware"
 )
 
-func NewRouter(repo *registry.Repository) http.Handler {
+func New(repo *registry.Repository) http.Handler {
 	r := chi.NewRouter()
 
-	setCommonMiddlewares(r)
+	middleware.SetCommonMiddlewares(r)
 
 	userHandler := user.NewHandler(repo)
 

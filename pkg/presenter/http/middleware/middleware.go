@@ -1,4 +1,4 @@
-package main
+package middleware
 
 import (
 	"github.com/go-chi/chi/middleware"
@@ -6,7 +6,7 @@ import (
 	"github.com/go-chi/chi"
 )
 
-func setCommonMiddlewares(r *chi.Mux) {
+func SetCommonMiddlewares(r *chi.Mux) {
 	r.Use(middleware.Logger)
 	r.Use(middleware.Recoverer)
 }

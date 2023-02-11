@@ -1,4 +1,4 @@
-package presenter
+package response
 
 import (
 	"encoding/json"
@@ -7,17 +7,17 @@ import (
 	"github.com/mahiro72/go-user-api/pkg/logger"
 )
 
-type messageResponse struct {
+type message struct {
 	Message string `json:"message"`
 }
 
-func newMessageResponse(msg string) *messageResponse {
-	return &messageResponse{
+func newMessage(msg string) *message {
+	return &message{
 		Message: msg,
 	}
 }
 
-func Response(w http.ResponseWriter, body interface{}) {
+func New(w http.ResponseWriter, body interface{}) {
 	w.Header().Add("Content-type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	if err := json.NewEncoder(w).Encode(body); err != nil {
@@ -25,10 +25,10 @@ func Response(w http.ResponseWriter, body interface{}) {
 	}
 }
 
-func BadRequestErrResponse(w http.ResponseWriter, err error) {
+func BadRequestErr(w http.ResponseWriter, err error) {
 	w.Header().Add("Content-type", "application/json")
 	w.WriteHeader(http.StatusBadRequest)
-	body := newMessageResponse(err.Error())
+	body := newMessage(err.Error())
 	if err := json.NewEncoder(w).Encode(body); err != nil {
 		logger.Log(err.Error())
 	}

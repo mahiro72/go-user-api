@@ -6,7 +6,7 @@ import (
 	"strconv"
 
 	"github.com/go-chi/chi"
-	"github.com/mahiro72/go-user-api/pkg/presenter"
+	"github.com/mahiro72/go-user-api/pkg/presenter/http/response"
 	"github.com/mahiro72/go-user-api/pkg/registry"
 	"github.com/mahiro72/go-user-api/pkg/usecase/user"
 )
@@ -27,12 +27,12 @@ func NewHandler(repo *registry.Repository) *Handler {
 func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	idParamString := chi.URLParam(r, "id")
 	if idParamString == "" {
-		presenter.BadRequestErrResponse(w, fmt.Errorf("error: is is empty"))
+		response.BadRequestErr(w, fmt.Errorf("error: is is empty"))
 		return
 	}
 	idParam, err := strconv.Atoi(idParamString)
 	if err != nil {
-		presenter.BadRequestErrResponse(w, err)
+		response.BadRequestErr(w, err)
 		return
 	}
 	inp := &user.GetInput{
@@ -40,11 +40,11 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	}
 	out, err := h.usecase.Get(r.Context(), inp)
 	if err != nil {
-		presenter.BadRequestErrResponse(w, err)
+		response.BadRequestErr(w, err)
 		return
 	}
 	u := NewUserView(out.User)
-	presenter.Response(w, u)
+	response.New(w, u)
 }
 
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {

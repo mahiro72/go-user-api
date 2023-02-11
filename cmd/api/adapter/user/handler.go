@@ -8,7 +8,6 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/mahiro72/go-user-api/pkg/presenter"
 	"github.com/mahiro72/go-user-api/pkg/registry"
-	"github.com/mahiro72/go-user-api/pkg/view"
 	"github.com/mahiro72/go-user-api/src/user"
 )
 
@@ -16,7 +15,6 @@ type Handler struct {
 	usecase *user.Usecase
 }
 
-// FIXME: なんかしっくりこない
 func NewHandler(repo *registry.Repository) *Handler {
 	usecase := user.NewUsecase(
 		repo.NewUser(),
@@ -45,7 +43,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 		presenter.BadRequestErrResponse(w, err)
 		return
 	}
-	u := view.NewUser(out.User)
+	u := NewUserView(out.User)
 	presenter.Response(w, u)
 }
 

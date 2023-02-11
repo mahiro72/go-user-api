@@ -8,7 +8,7 @@ import (
 	"github.com/go-chi/chi"
 	"github.com/mahiro72/go-user-api/pkg/presenter"
 	"github.com/mahiro72/go-user-api/pkg/registry"
-	"github.com/mahiro72/go-user-api/src/user"
+	"github.com/mahiro72/go-user-api/pkg/usecase/user"
 )
 
 type Handler struct {

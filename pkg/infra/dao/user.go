@@ -30,9 +30,9 @@ func (d *User) Get(ctx context.Context, id int) (*model.User, error) {
 
 func (d *User) Create(ctx context.Context, m *model.User) (*model.User, error) {
 	e := entity.NewUserFromModel(m)
-	if err := d.db.Create(e).Error;err!=nil{
-		return nil,err
+	if err := d.db.Create(e).Error; err != nil {
+		return nil, err
 	}
-	
+
 	return e.ToModel(), nil
 }

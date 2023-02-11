@@ -18,7 +18,7 @@ func Init() (*gorm.DB, error) {
 		for err != nil && spentSec <= 60 {
 			db, err = gorm.Open(mysql.Open(config.MySQL.DSN), &gorm.Config{})
 			logger.Log(
-				fmt.Sprintf("failed: connect to db, time: %ds ...",spentSec),
+				fmt.Sprintf("failed: connect to db, time: %ds ...", spentSec),
 			)
 			spentSec += 5
 			time.Sleep(time.Second * 5)

@@ -32,15 +32,15 @@ func (u *Usecase) Get(ctx context.Context, input *GetInput) (*GetOutput, error) 
 
 func (u *Usecase) Create(ctx context.Context, input *CreateInput) (*CreateOutput, error) {
 	if input.Name == "" {
-		return nil,fmt.Errorf("error: user name is empty")
+		return nil, fmt.Errorf("error: user name is empty")
 	}
 
 	m := &model.User{
 		Name: input.Name,
 	}
-	user,err := u.repository.Create(ctx,m)
+	user, err := u.repository.Create(ctx, m)
 	if err != nil {
-		return nil,err
+		return nil, err
 	}
 
 	out := &CreateOutput{

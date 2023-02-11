@@ -34,7 +34,7 @@ func initMySQL() error {
 	if MySQL._HOST, err = getEnv("MYSQL_HOST"); err != nil {
 		return err
 	}
-	
+
 	MySQL.DSN = fmt.Sprintf(
 		"%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=true",
 		MySQL._USER,

@@ -53,11 +53,11 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	var j createReequest
-	if err:=json.NewDecoder(r.Body).Decode(&j);err!=nil{
+	if err := json.NewDecoder(r.Body).Decode(&j); err != nil {
 		response.BadRequestErr(w, err)
 		return
 	}
-	
+
 	defer r.Body.Close()
 	if j.Name == "" {
 		response.BadRequestErr(w, fmt.Errorf("error: user name is empty"))
@@ -67,12 +67,12 @@ func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
 	inp := &user.CreateInput{
 		Name: j.Name,
 	}
-	out,err:=h.usecase.Create(r.Context(),inp)
+	out, err := h.usecase.Create(r.Context(), inp)
 	if err != nil {
 		response.BadRequestErr(w, err)
 		return
 	}
 
 	u := NewUserView(out.User)
-	response.New(w,u)
+	response.New(w, u)
 }

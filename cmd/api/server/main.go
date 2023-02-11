@@ -22,7 +22,7 @@ func main() {
 
 	r := router.New(repo)
 
-	srv := &http.Server{Addr: "0.0.0.0:3333", Handler: r}
+	srv := &http.Server{Addr: ":8080", Handler: r}
 	srvCtx, srvStopCtx := context.WithCancel(context.Background())
 
 	sig := make(chan os.Signal, 1)

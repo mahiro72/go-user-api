@@ -11,6 +11,6 @@ COPY . .
 
 RUN go install github.com/cosmtrek/air@v1.29.0
 
-COPY docker/dev/api/.air.toml ./.air.toml
+COPY docker/dev/api/.air.toml /air/.air.toml
 
-CMD ["air", "-c", ".air.toml"]
+CMD ["air", "-c", "/air/.air.toml"]

@@ -52,6 +52,11 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 }
 
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
+	if r.ContentLength == 0 {
+		response.BadRequestErr(w, fmt.Errorf("request body is empty"))
+		return
+	}
+
 	var j createReequest
 	if err := json.NewDecoder(r.Body).Decode(&j); err != nil {
 		response.BadRequestErr(w, err)

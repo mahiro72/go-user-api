@@ -15,8 +15,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - .:/app
-      - ./docker/dev/api/.air.toml:/.air.toml
+      - .:/go/src/github.com/mahiro72/go-user-api
   mysql:
     container_name: user-api-mysql
     build:

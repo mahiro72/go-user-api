@@ -2,7 +2,9 @@ package user
 
 import (
 	"context"
+	"fmt"
 
+	"github.com/mahiro72/go-user-api/pkg/domain/model"
 	"github.com/mahiro72/go-user-api/pkg/domain/repository"
 )
 
@@ -21,12 +23,28 @@ func (u *Usecase) Get(ctx context.Context, input *GetInput) (*GetOutput, error) 
 	if err != nil {
 		return nil, err
 	}
+
 	out := &GetOutput{
 		User: user,
 	}
 	return out, nil
 }
 
-func (u *Usecase) Create(ctx context.Context, input *AddInput) (*AddOutput, error) {
-	return nil, nil
+func (u *Usecase) Create(ctx context.Context, input *CreateInput) (*CreateOutput, error) {
+	if input.Name == "" {
+		return nil,fmt.Errorf("error: user name is empty")
+	}
+
+	m := &model.User{
+		Name: input.Name,
+	}
+	user,err := u.repository.Create(ctx,m)
+	if err != nil {
+		return nil,err
+	}
+
+	out := &CreateOutput{
+		User: user,
+	}
+	return out, nil
 }

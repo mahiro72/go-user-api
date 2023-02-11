@@ -6,6 +6,6 @@ type GetOutput struct {
 	User *model.User
 }
 
-type AddOutput struct {
+type CreateOutput struct {
 	User *model.User
 }

@@ -20,14 +20,19 @@ func NewUser(db *gorm.DB) *User {
 }
 
 func (d *User) Get(ctx context.Context, id int) (*model.User, error) {
-	var user entity.User
-	if err := d.db.Where("id = ?", id).First(&user).Error; err != nil {
+	var e entity.User
+	if err := d.db.Where("id = ?", id).First(&e).Error; err != nil {
 		return nil, err
 	}
-	return user.ToModel(), nil
+
+	return e.ToModel(), nil
 }
 
 func (d *User) Create(ctx context.Context, m *model.User) (*model.User, error) {
-	_ = entity.NewUserFromModel(m)
-	return nil, nil
+	e := entity.NewUserFromModel(m)
+	if err := d.db.Create(e).Error;err!=nil{
+		return nil,err
+	}
+	
+	return e.ToModel(), nil
 }

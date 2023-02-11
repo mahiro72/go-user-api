@@ -18,18 +18,23 @@ func initMySQL() error {
 	if MySQL._DATABASE, err = getEnv("MYSQL_DATABASE"); err != nil {
 		return err
 	}
+
 	if MySQL._USER, err = getEnv("MYSQL_USER"); err != nil {
 		return err
 	}
+
 	if MySQL._PASSWORD, err = getEnv("MYSQL_PASSWORD"); err != nil {
 		return err
 	}
+
 	if MySQL._ROOT_PASSWORD, err = getEnv("MYSQL_ROOT_PASSWORD"); err != nil {
 		return err
 	}
+
 	if MySQL._HOST, err = getEnv("MYSQL_HOST"); err != nil {
 		return err
 	}
+	
 	MySQL.DSN = fmt.Sprintf(
 		"%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=true",
 		MySQL._USER,

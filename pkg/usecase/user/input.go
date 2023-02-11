@@ -4,6 +4,6 @@ type GetInput struct {
 	Id int
 }
 
-type AddInput struct {
+type CreateInput struct {
 	Name string
 }

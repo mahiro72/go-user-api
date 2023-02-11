@@ -16,6 +16,7 @@ func NewRepository() (*Repository, error) {
 	if err != nil {
 		return nil, err
 	}
+
 	return &Repository{db: db}, nil
 }
 

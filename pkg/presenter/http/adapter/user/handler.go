@@ -1,6 +1,7 @@
 package user
 
 import (
+	"encoding/json"
 	"fmt"
 	"net/http"
 	"strconv"
@@ -27,14 +28,16 @@ func NewHandler(repo *registry.Repository) *Handler {
 func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	idParamString := chi.URLParam(r, "id")
 	if idParamString == "" {
-		response.BadRequestErr(w, fmt.Errorf("error: is is empty"))
+		response.BadRequestErr(w, fmt.Errorf("error: id is empty"))
 		return
 	}
+
 	idParam, err := strconv.Atoi(idParamString)
 	if err != nil {
 		response.BadRequestErr(w, err)
 		return
 	}
+
 	inp := &user.GetInput{
 		Id: idParam,
 	}
@@ -43,10 +46,33 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 		response.BadRequestErr(w, err)
 		return
 	}
+
 	u := NewUserView(out.User)
 	response.New(w, u)
 }
 
 func (h *Handler) Create(w http.ResponseWriter, r *http.Request) {
+	var j createReequest
+	if err:=json.NewDecoder(r.Body).Decode(&j);err!=nil{
+		response.BadRequestErr(w, err)
+		return
+	}
+	
+	defer r.Body.Close()
+	if j.Name == "" {
+		response.BadRequestErr(w, fmt.Errorf("error: user name is empty"))
+		return
+	}
 
+	inp := &user.CreateInput{
+		Name: j.Name,
+	}
+	out,err:=h.usecase.Create(r.Context(),inp)
+	if err != nil {
+		response.BadRequestErr(w, err)
+		return
+	}
+
+	u := NewUserView(out.User)
+	response.New(w,u)
 }

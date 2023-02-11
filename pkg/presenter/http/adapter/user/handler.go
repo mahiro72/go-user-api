@@ -39,7 +39,7 @@ func (h *Handler) Get(w http.ResponseWriter, r *http.Request) {
 	}
 
 	inp := &user.GetInput{
-		Id: idParam,
+		ID: idParam,
 	}
 	out, err := h.usecase.Get(r.Context(), inp)
 	if err != nil {

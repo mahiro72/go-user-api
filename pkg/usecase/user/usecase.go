@@ -19,7 +19,7 @@ func NewUsecase(repository repository.IUser) *Usecase {
 }
 
 func (u *Usecase) Get(ctx context.Context, input *GetInput) (*GetOutput, error) {
-	user, err := u.repository.Get(ctx, input.Id)
+	user, err := u.repository.Get(ctx, input.ID)
 	if err != nil {
 		return nil, err
 	}

@@ -1,7 +1,7 @@
 package user
 
 type GetInput struct {
-	Id int
+	ID int
 }
 
 type CreateInput struct {

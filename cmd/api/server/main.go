@@ -31,7 +31,8 @@ func main() {
 		<-sig
 
 		// 猶予期間が30秒のグレースフルシャットダウンを開始する
-		shutdownCtx, _ := context.WithTimeout(srvCtx, 30*time.Second)
+		shutdownCtx, shutdownCancel := context.WithTimeout(srvCtx, 30*time.Second)
+		defer shutdownCancel()
 
 		go func() {
 			<-shutdownCtx.Done()

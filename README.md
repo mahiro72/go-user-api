@@ -24,7 +24,7 @@ make up
 
 <br>
 
-##　Directry
+## Directry
 
 ```
 .

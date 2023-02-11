@@ -17,7 +17,7 @@ import (
 func main() {
 	repo, err := registry.NewRepository()
 	if err != nil {
-		panic(fmt.Sprintf("error: NewRepository: %v",err))
+		panic(fmt.Sprintf("error: NewRepository: %v", err))
 	}
 
 	r := router.New(repo)
